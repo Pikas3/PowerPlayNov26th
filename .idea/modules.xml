@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PowerPlayNov26th.iml" filepath="$PROJECT_DIR$/.idea/modules/PowerPlayNov26th.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.main.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/PowerPlayNov26th.FtcRobotController.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.test.iml" filepath="$PROJECT_DIR$/.idea/modules/MeepMeepTesting/PowerPlayNov26th.MeepMeepTesting.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.main.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/PowerPlayNov26th.TeamCode.unitTest.iml" />
+    </modules>
+  </component>
+</project>
