@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.subsystem.Robot;
 import org.firstinspires.ftc.teamcode.subsystem.SleeveDetector;
+import org.firstinspires.ftc.teamcode.subsystem.lift.LiftConstants;
 
 @Autonomous
 public class ParkAutoBlueLeft extends LinearOpMode {
@@ -24,9 +28,11 @@ public class ParkAutoBlueLeft extends LinearOpMode {
 
         // lift
     }
+
     public void robot_prepare_move() {
 
     }
+
     public void robot_drop_cone() {
 
     }
@@ -35,24 +41,19 @@ public class ParkAutoBlueLeft extends LinearOpMode {
         robot = new Robot(telemetry, hardwareMap);
         // ElapsedTime timer = new ElapsedTime();
         detector.init(hardwareMap, telemetry);
-
         TrajectorySequence parking1 = robot.drive.trajectorySequenceBuilder(START_POSE)
-                .back(28)
-                .turn(Math.toRadians(78.5))
-                .forward(24)
-//                .lineToLinearHeading(new Pose2d(36, 34, Math.toRadians(90)))
-//                .lineToLinearHeading(new Pose2d(60, 34, Math.toRadians(90)))
+                .setReversed(true)
+                .lineToLinearHeading(new Pose2d(36, 40, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(80, 40, Math.toRadians(90)))
                 .build();
         TrajectorySequence parking2 = robot.drive.trajectorySequenceBuilder(START_POSE)
-                .back(28)
-//                .lineToLinearHeading(new Pose2d(36, 34, Math.toRadians(90)))
+                .setReversed(true)
+                .lineToLinearHeading(new Pose2d(36, 40, Math.toRadians(90)))
                 .build();
         TrajectorySequence parking3 = robot.drive.trajectorySequenceBuilder(START_POSE)
-                .back(28)
-                .turn(Math.toRadians(-78.5))
-                .forward(24)
-//                .lineToLinearHeading(new Pose2d(36, 34, Math.toRadians(90)))
-//                .lineToLinearHeading(new Pose2d(12, 34, Math.toRadians(90)))
+                .setReversed(true)
+                .lineToLinearHeading(new Pose2d(36, 40, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(0, 40, Math.toRadians(90)))
                 .build();
 
         robot.drive.setPoseEstimate(START_POSE);

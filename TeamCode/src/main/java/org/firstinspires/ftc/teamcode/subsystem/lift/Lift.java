@@ -121,7 +121,7 @@ public class Lift implements Subsystem {
 //            turretmotor.setPower(0);
 //        }
         turretpower = tpower;
-        if (Math.abs((targetRotation - currentRotation)) <= 3) {
+        if (Math.abs((targetRotation - currentRotation)) <= 5) {
             setTurretPower(0);
         } else if (currentHeight > 30) {
             mode = "HIGH";

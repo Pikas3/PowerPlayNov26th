@@ -43,26 +43,33 @@ public class ParkAutoRedRightTest extends LinearOpMode {
 //                    robot.lift.setArmPos(LiftConstants.IdleArm);
 //                })
 //                .waitSeconds(1.5)
-                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+                .setVelConstraint(robot.drive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                 .setReversed(true)
                 // Preplaced
-                .lineToLinearHeading(new Pose2d(33, -10, Math.toRadians(279)))
+                .lineToLinearHeading(new Pose2d(38, -7.5, Math.toRadians(280)))
                 .addTemporalMarker(() -> {
-                    robot.lift.setTargetHeight(41.5);
+                    robot.lift.setTargetHeight(34);
                     robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
                 .waitSeconds(0.4)
                 .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .back(4.5)
+                .back(4.3)
                 .waitSeconds(0.7)
                 .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
                     robot.lift.setArmPos(LiftConstants.IntakingArm);
                     robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
                     robot.lift.setTargetRotation(240);
+                    robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
+                .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
+                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
+                    robot.lift.setArmPos(LiftConstants.IntakingArm);
+                })
+
 
 
                 // Cycle #1
@@ -72,16 +79,20 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                 })
                 .setReversed(false)
                 .waitSeconds(0.9)
-                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+                .setVelConstraint(robot.drive.getVelocityConstraint(80, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                 .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    robot.lift.setTargetHeight(8);
+                    robot.lift.setTargetHeight(10);
                 })
-                .lineToLinearHeading(new Pose2d(84, -4, Math.toRadians(347)))
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(80, -2, Math.toRadians(367)))
+                .setVelConstraint(robot.drive.getVelocityConstraint(20, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+                .forward(10)
+                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                 //pick up cone
                 .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
                     robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
                 })
-                .waitSeconds(0.3)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     robot.lift.setTargetHeight(15);
                 })
@@ -91,7 +102,8 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                 })
                 .setReversed(true)
                 .waitSeconds(0.3)
-                .lineToLinearHeading(new Pose2d(51, -4, Math.toRadians(346)))
+                .setVelConstraint(robot.drive.getVelocityConstraint(40, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+                .lineToLinearHeading(new Pose2d(51, -10, Math.toRadians(356)))
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
                     robot.lift.setTargetRotation(360);
                 })
@@ -101,152 +113,158 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                 })
                 .waitSeconds(0.4)
                 .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .strafeLeft(12)
-                .waitSeconds(0.7)
+                .strafeLeft(5)
+                .waitSeconds(0.5)
                 .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
                     robot.lift.setArmPos(LiftConstants.IntakingArm);
                     robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+                .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
                     robot.lift.setTargetRotation(240);
-                })
-
-
-                // Cycle #2
-
-
-                .setReversed(false)
-                .waitSeconds(0.9)
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    robot.lift.setTargetHeight(7);
-                })
-                .lineToLinearHeading(new Pose2d(84, -10, Math.toRadians(347)))
-                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(15);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.8, () -> {
                     robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
-                .setReversed(true)
-                .waitSeconds(0.3)
-                .lineToConstantHeading(new Vector2d(44, -7))
-                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    robot.lift.setTargetRotation(360);
+                .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
+                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
-                    robot.lift.setTargetHeight(37);
-                    robot.lift.setArmPos(LiftConstants.IdleArm);
-                })
-                .waitSeconds(1)
-                .setVelConstraint(robot.drive.getVelocityConstraint(30, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
                     robot.lift.setArmPos(LiftConstants.IntakingArm);
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                 })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
-                    robot.lift.setTargetRotation(240);
-                })
-
-
-                //cycle 3
-
-
-                .setReversed(false)
-                .waitSeconds(0.9)
-                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    robot.lift.setTargetHeight(6);
-                })
-                .lineToLinearHeading(new Pose2d(84, -10, Math.toRadians(347)))
-                //pick up cone
-                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
-                })
-                .waitSeconds(0.3)
-                .addTemporalMarker(() -> {
-                    robot.lift.setTargetHeight(15);
-                })
-                .waitSeconds(0.1)
-                .addTemporalMarker(() -> {
-                    robot.lift.setArmPos(LiftConstants.IdleArm);
-                })
-                .setReversed(true)
-                .waitSeconds(0.3)
-                .lineToLinearHeading(new Pose2d(51, -4, Math.toRadians(346)))
-                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    robot.lift.setTargetRotation(360);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
-
-                    robot.lift.setTargetHeight(41.5);
-                    robot.lift.setArmPos(LiftConstants.IdleArm);
-                })
-                .waitSeconds(0.4)
-                .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .strafeLeft(9)
-                .waitSeconds(0.7)
-                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
-                    robot.lift.setArmPos(LiftConstants.IntakingArm);
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
-                    robot.lift.setTargetRotation(240);
-                })
-
-
-                //cycle 4
-
-
-                .setReversed(false)
-                .waitSeconds(0.9)
-                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
-                    robot.lift.setTargetHeight(5);
-                })
-                .lineToLinearHeading(new Pose2d(84, -10, Math.toRadians(347)))
-                //pick up cone
-                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
-                })
-                .waitSeconds(0.3)
-                .addTemporalMarker(() -> {
-                    robot.lift.setTargetHeight(15);
-                })
-                .waitSeconds(0.1)
-                .addTemporalMarker(() -> {
-                    robot.lift.setArmPos(LiftConstants.IdleArm);
-                })
-                .setReversed(true)
-                .waitSeconds(0.3)
-                .lineToLinearHeading(new Pose2d(51, -4, Math.toRadians(346)))
-                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    robot.lift.setTargetRotation(360);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
-
-                    robot.lift.setTargetHeight(41.5);
-                    robot.lift.setArmPos(LiftConstants.IdleArm);
-                })
-                .waitSeconds(0.4)
-                .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
-                .strafeLeft(9)
-                .waitSeconds(0.7)
-                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
-                    robot.lift.setArmPos(LiftConstants.IntakingArm);
-                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
-                })
-                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
-                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
-                    robot.lift.setTargetRotation(240);
-                })
-                //park
-                .forward(12)
+//
+//                // Cycle #2
+//
+//
+//                .setReversed(false)
+//                .waitSeconds(0.9)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+//                    robot.lift.setTargetHeight(7);
+//                })
+//                .lineToLinearHeading(new Pose2d(84, 4, Math.toRadians(347)))
+//                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
+//                    robot.lift.setTargetHeight(15);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.8, () -> {
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .setReversed(true)
+//                .waitSeconds(0.3)
+//                .lineToConstantHeading(new Vector2d(44, -7))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
+//                    robot.lift.setTargetRotation(360);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
+//                    robot.lift.setTargetHeight(37);
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .waitSeconds(1)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(30, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
+//                    robot.lift.setArmPos(LiftConstants.IntakingArm);
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
+//                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+//                    robot.lift.setTargetRotation(240);
+//                })
+//
+//
+//                //cycle 3
+//
+//
+//                .setReversed(false)
+//                .waitSeconds(0.9)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+//                    robot.lift.setTargetHeight(6);
+//                })
+//                .lineToLinearHeading(new Pose2d(84, 4, Math.toRadians(347)))
+//                //pick up cone
+//                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
+//                })
+//                .waitSeconds(0.3)
+//                .addTemporalMarker(() -> {
+//                    robot.lift.setTargetHeight(15);
+//                })
+//                .waitSeconds(0.1)
+//                .addTemporalMarker(() -> {
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .setReversed(true)
+//                .waitSeconds(0.3)
+//                .lineToLinearHeading(new Pose2d(51, -4, Math.toRadians(346)))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
+//                    robot.lift.setTargetRotation(360);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
+//
+//                    robot.lift.setTargetHeight(41.5);
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .waitSeconds(0.4)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .strafeLeft(9)
+//                .waitSeconds(0.7)
+//                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
+//                    robot.lift.setArmPos(LiftConstants.IntakingArm);
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
+//                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+//                    robot.lift.setTargetRotation(240);
+//                })
+//
+//
+//                //cycle 4
+//
+//
+//                .setReversed(false)
+//                .waitSeconds(0.9)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(50, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> {
+//                    robot.lift.setTargetHeight(5);
+//                })
+//                .lineToLinearHeading(new Pose2d(84, -10, Math.toRadians(347)))
+//                //pick up cone
+//                .UNSTABLE_addTemporalMarkerOffset(0.1, () -> {
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWCLOSEPOS1);
+//                })
+//                .waitSeconds(0.3)
+//                .addTemporalMarker(() -> {
+//                    robot.lift.setTargetHeight(15);
+//                })
+//                .waitSeconds(0.1)
+//                .addTemporalMarker(() -> {
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .setReversed(true)
+//                .waitSeconds(0.3)
+//                .lineToLinearHeading(new Pose2d(51, -4, Math.toRadians(346)))
+//                .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
+//                    robot.lift.setTargetRotation(360);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
+//
+//                    robot.lift.setTargetHeight(41.5);
+//                    robot.lift.setArmPos(LiftConstants.IdleArm);
+//                })
+//                .waitSeconds(0.4)
+//                .setVelConstraint(robot.drive.getVelocityConstraint(15, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
+//                .strafeLeft(9)
+//                .waitSeconds(0.7)
+//                .UNSTABLE_addTemporalMarkerOffset(0.3, () -> {
+//                    robot.lift.setArmPos(LiftConstants.IntakingArm);
+//                    robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
+//                })
+//                .UNSTABLE_addTemporalMarkerOffset(0.75, () -> {
+//                    robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+//                    robot.lift.setTargetRotation(240);
+//                })
+//                //park
+//                .forward(12)
                 .build();
 
 

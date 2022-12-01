@@ -32,7 +32,7 @@ public class ParkAutoRedLeft extends LinearOpMode {
                 .build();
         TrajectorySequence parking2 = robot.drive.trajectorySequenceBuilder(START_POSE)
                 .back(28)
-//                .lineToLinearHeading(new Pose2d(-36, -34, Math.toRadians(270)))
+               .lineToLinearHeading(new Pose2d(-36, -34, Math.toRadians(270)))
                 .build();
         TrajectorySequence parking3 = robot.drive.trajectorySequenceBuilder(START_POSE)
                 .back(28)

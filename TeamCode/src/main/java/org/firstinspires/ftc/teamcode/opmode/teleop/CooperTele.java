@@ -24,7 +24,7 @@ public class CooperTele extends LinearOpMode {
     double turretaddition = 40;
     double dtspeed = 1;
     double up = 34;
-    double mid = 21.5;
+    double mid = 22;
     double low = 11;
     double ground = -1;
     private double front = 0;
@@ -32,6 +32,7 @@ public class CooperTele extends LinearOpMode {
     private double right = 120;
     private double left = -120;
     private boolean armup = true;
+    private boolean lowheight = false;
 
 
 
@@ -80,20 +81,7 @@ public class CooperTele extends LinearOpMode {
             } else{
                     dtspeed = 1;
             }
-            if(timer.milliseconds() > 300) {
-                if (robotState == robotState.LIFTED) {
-                    if (gamepad2.right_bumper && armup == true) {
-                        robot.lift.setArmPos(LiftConstants.IntakingArm);
-                        armup = false;
-                        timer.reset();
-                    }
-                    if (gamepad2.right_bumper && armup == false) {
-                        robot.lift.setArmPos(LiftConstants.IdleArm);
-                        armup = true;
-                        timer.reset();
-                    }
-                }
-            }
+
 
             double TurretPower = gamepad2.right_stick_x;
             if (canTurn = true) {
@@ -178,36 +166,38 @@ public class CooperTele extends LinearOpMode {
                             robot.lift.setArmPos(LiftConstants.IdleArm);
                             timer.reset();
                             robotState = robotState.LIFTED;
+                            armup = true;
+                            lowheight = false;
                         }
                         if (gamepad2.dpad_right) {
                             robot.lift.setTargetHeight(mid);
                             robot.lift.setArmPos(LiftConstants.IdleArm);
                             timer.reset();
                             robotState = robotState.LIFTED;
+                            armup = true;
+                            lowheight = false;
                         }
                         if (gamepad2.dpad_left) {
                             robot.lift.setTargetHeight(low);
                             robot.lift.setArmPos(LiftConstants.IdleArm);
                             timer.reset();
                             robotState = robotState.LIFTED;
+                            armup = true;
+                            lowheight = false;
                         }
                         if (gamepad2.dpad_down) {
                             robot.lift.setTargetHeight(ground);
                             robot.lift.setArmPos(LiftConstants.IntakingArm);
                             timer.reset();
                             robotState = robotState.LIFTED;
+                            armup = false;
+                            lowheight = true;
                         }
                     }
                     break;
                 case LIFTED:
                     canTurn = true;
                     dtspeed = 0.4;
-                    armup = true;
-                    if (gamepad2.left_stick_y > 0.5) {
-                        robot.lift.setArmPos(robot.lift.armServo2.getPosition() - 0.0125);
-                    } else if (gamepad2.left_stick_y < -0.5) {
-                        robot.lift.setArmPos(robot.lift.armServo2.getPosition() + 0.0125);
-                    }
                     if (timer.milliseconds() > 750) {
                         if (gamepad2.dpad_down || gamepad1.dpad_down) {
                             timer.reset();
@@ -219,6 +209,18 @@ public class CooperTele extends LinearOpMode {
                             timer.reset();
                             robotState = robotState.DROPPED;
                         }
+                        if (armtimer.milliseconds() > 1000) {
+                            if (gamepad2.left_bumper) {
+                                robot.lift.setArmPos(LiftConstants.IntakingArm);
+                                armup = false;
+                                armtimer.reset();
+                            }
+                            if (gamepad2.left_bumper && armup == false) {
+                                robot.lift.setArmPos(LiftConstants.IdleArm);
+                                armup = true;
+                                armtimer.reset();
+                            }
+                        }
                     }
                     break;
                 case DROPPED:
@@ -226,9 +228,21 @@ public class CooperTele extends LinearOpMode {
                     canTurn = false;
                     robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                     if (timer.milliseconds() > 450) {
-                        robot.lift.setTargetHeight(LiftConstants.IdleHeight);
-                        robot.lift.setTargetRotation(front);
-                        robotState = robotState.IDLE;
+                        if (lowheight == false) {
+                            robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+                            robot.lift.setArmPos(LiftConstants.IdleArm);
+                            robot.lift.setTargetRotation(front);
+                            robotState = robotState.IDLE;
+                            timer.reset();
+                        }else {
+                            robot.lift.setTargetHeight(LiftConstants.IdleHeight);
+                            robot.lift.setArmPos(LiftConstants.IdleArm);
+                            sleep(150);
+                            robot.lift.setTargetRotation(front);
+                            robotState = robotState.IDLE;
+                            timer.reset();
+                        }
+
                     }
                     break;
 
@@ -245,7 +259,9 @@ public class CooperTele extends LinearOpMode {
             telemetry.addData("turrettimer", turrettimer.milliseconds());
             telemetry.addData("dtspeed", dtspeed);
             telemetry.addData("slide power", robot.lift.motor2.getPower());
-            telemetry.addData("arm", armup);
+            telemetry.addData("armup?", armup);
+            telemetry.addData("lowheight?", lowheight);
+            telemetry.addData("arm timer", armtimer.milliseconds());
             robot.update();
         }
     }
