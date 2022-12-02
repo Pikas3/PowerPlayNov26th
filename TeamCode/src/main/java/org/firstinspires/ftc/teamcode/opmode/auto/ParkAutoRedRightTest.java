@@ -33,6 +33,7 @@ public class ParkAutoRedRightTest extends LinearOpMode {
         sleep(1500);
         robot.lift.setArmPos(LiftConstants.IdleArm);
         detector.init(hardwareMap, telemetry);
+        robot.lift.setOpmode("auto");
 
         TrajectorySequence parking1 = robot.drive.trajectorySequenceBuilder(START_POSE)
 //                .addTemporalMarker(() -> {
@@ -60,7 +61,7 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                     robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
-                    robot.lift.setTargetRotation(240);
+                    robot.lift.setAutoRotation(240);
                     robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
@@ -105,10 +106,10 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                 .setVelConstraint(robot.drive.getVelocityConstraint(40, Math.toRadians(180), DriveConstants.TRACK_WIDTH))
                 .lineToLinearHeading(new Pose2d(51, -10, Math.toRadians(356)))
                 .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> {
-                    robot.lift.setTargetRotation(360);
+                    robot.lift.setAutoRotation(360);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.4, () -> {
-                    robot.lift.setTargetHeight(41.5);
+                    robot.lift.setAutoRotation(41.5);
                     robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
                 .waitSeconds(0.4)
@@ -120,7 +121,7 @@ public class ParkAutoRedRightTest extends LinearOpMode {
                     robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.5, () -> {
-                    robot.lift.setTargetRotation(240);
+                    robot.lift.setAutoRotation(240);
                     robot.lift.setArmPos(LiftConstants.IdleArm);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(0.55, () -> {
@@ -294,6 +295,8 @@ public class ParkAutoRedRightTest extends LinearOpMode {
 
         while(opModeIsActive()) {
             telemetry.addData("turret pos", robot.lift.getCurrentRotation());
+            telemetry.addData("turret target", robot.lift.getAutoRotation());
+            telemetry.addData("opmode", robot.lift.getOpmode());
             telemetry.addData("slide pos", robot.lift.getCurrentPosition());
             telemetry.update();
             robot.update();

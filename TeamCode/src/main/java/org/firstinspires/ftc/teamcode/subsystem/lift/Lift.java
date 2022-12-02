@@ -55,10 +55,12 @@ public class Lift implements Subsystem {
     private double currentHeight = 0;
     private double currentRotation = 0;
     private double targetRotation = 0;
+    private double autoRotation = 0;
 
     private double stackDifference = 1.0;
 
     private String mode = "";
+    private String opmode = "";
     private ElapsedTime timer = new ElapsedTime();
 
     public Lift(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -121,20 +123,42 @@ public class Lift implements Subsystem {
 //            turretmotor.setPower(0);
 //        }
         turretpower = tpower;
-        if (Math.abs((targetRotation - currentRotation)) <= 5) {
-            setTurretPower(0);
-        } else if (currentHeight > 30) {
-            mode = "HIGH";
-            turretpid.setPID(0.65, 0.0, .009);
-            tpower += turretpid.calculate(currentRotation);
-            turretpower = tpower;
-            setTurretPower(tpower);
-        } else {
-            mode = "LOW";
-            turretpid.setPID(0.7, 0, 0.025);
-            tpower += turretpid.calculate(currentRotation);
-            turretpower = tpower;
-            setTurretPower(tpower);
+        if (opmode == "teleop") {
+            if (Math.abs((targetRotation - currentRotation)) <= 5) {
+                setTurretPower(0);
+            } else if (currentHeight > 30) {
+                mode = "HIGH";
+                turretpid.setPID(0.65, 0.0, .009);
+                tpower += turretpid.calculate(currentRotation);
+                turretpower = tpower;
+                setTurretPower(tpower);
+            } else {
+                mode = "LOW";
+                turretpid.setPID(0.7, 0, 0.025);
+                tpower += turretpid.calculate(currentRotation);
+                turretpower = tpower;
+                setTurretPower(tpower);
+            }
+        } else if (opmode == "auto") {
+            if (Math.abs((autoRotation - currentRotation)) <= 5) {
+                turretmotor.setPower(0);
+            } else if (autoRotation > currentRotation) {
+                if ((autoRotation - currentRotation) <= 30) {
+                    turretmotor.setPower(0.15);
+                } else if ((autoRotation - currentRotation) <= 100) {
+                    turretmotor.setPower(0.4);
+                } else {
+                    turretmotor.setPower(0.8);
+                }
+            } else if (autoRotation < currentRotation) {
+                if ((autoRotation - currentRotation) >= -30) {
+                    turretmotor.setPower(-0.15);
+                } else if ((autoRotation - currentRotation) >= -100) {
+                    turretmotor.setPower(-0.4);
+                } else {
+                    turretmotor.setPower(-0.8);
+                }
+            }
         }
     }
 
@@ -208,6 +232,10 @@ public class Lift implements Subsystem {
         turretpid.setSetPoint(targetRotation);
     }
 
+    public void setAutoRotation(double rotation) {
+        autoRotation = rotation;
+    }
+
     public double getTpower() {
         return turretpower;
     }
@@ -235,5 +263,17 @@ public class Lift implements Subsystem {
     public ElapsedTime.Resolution getTimer() {
         return timer.getResolution();
 
+    }
+
+    public void setOpmode(String mode) {
+        opmode = mode;
+    }
+
+    public String getOpmode() {
+        return opmode;
+    }
+
+    public Double getAutoRotation() {
+        return autoRotation;
     }
 }

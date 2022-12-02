@@ -56,6 +56,7 @@ public class CooperTele extends LinearOpMode {
         robotState = robotState.INTAKING;
         robot.lift.setClaw1Pos(LiftConstants.CLAWOPENPOS1);
         robot.lift.turretmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.lift.setOpmode("auto");
         armup = true;
         while (!isStopRequested() && opModeIsActive()) {
 
